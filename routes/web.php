@@ -14,6 +14,23 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/jibon', function () {
-    return "hello jibon";
+
+Route::get('hello','DepertmentController@index');
+
+//Route::get('home/{name?}',function($name=null){
+//    return view('home',compact('name'));
+//});
+
+Route::get('posts',function(){
+    return view('index');
 });
+
+Route::get('contact',function(){
+    return view('contact');
+});
+
+Route::post('home/store','BlogPost@store');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
