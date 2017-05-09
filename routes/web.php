@@ -36,3 +36,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('show','BlogPost@show');
 Route::get('post','BlogPost@index');
+Route::get('postDelete/{id}','BlogPost@postDeletes');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\UploadedFile;
 //use Intervention\Image\Facades\Image;
 use App\BlogModel;
@@ -25,15 +26,16 @@ class BlogPost extends Controller
     public function store(Request $request)
    {
 
-//
+
        $insert_post = new BlogModel();
 //
         $insert_post->post_title = $request->name;
         $insert_post->post = $request->post;
         if($request->hasFile('image')){
-//            $path=$request->file('image');
-//           $pathe=$path->getClientOriginalName();
-           $insert_post->image=$request->image->store('images');
+           $path=$request->file('image');
+           $filename=$path->getClientOriginalName();
+           $insert_post->image=$request->image->storeAs('images',"$filename");
+
 
 
 //
@@ -76,6 +78,14 @@ class BlogPost extends Controller
 //       $insert_post->save();
 
    }
+
+
+    public function postDeletes($id)
+    {
+        User::destroy($id);
+        User::where('id',$id)->delete();
+        return back();
+    }
 
     public function show()
     {
